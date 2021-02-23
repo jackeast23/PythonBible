@@ -1,3 +1,5 @@
+# Tuples are like lists that cannot be changed
+
 our_tuple = (1,2,3,"A", "B","C")
 
 print(type(our_tuple))
