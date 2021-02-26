@@ -34,6 +34,12 @@ class Coin:
         choice = random.choice(heads_options)
         self.heads = choice
 
+    def __str__(self):
+        if self.original_value >= 1:
+            return "${} coin".format(int(self.original_value))
+        else:
+            return "{} cent coin".format(int(self.original_value * 100))
+
 
 class Loonie(Coin):
     def __init__(self):
@@ -130,3 +136,12 @@ class Toonie(Coin):
             "mass": 6.92
         }
         super().__init__(**data)
+
+coins = [Penny(), Nickel(), Dime(), Quarter(), Loonie(), Toonie()]
+
+for coin in coins:
+    arguments = [coin, coin.colour, coin.value, coin.diameter,
+                 coin.thickness, coin.num_edges, coin.mass]
+
+    string = "{} - Colour: {}, value: {}, diamter(mm): {}, thickness(mm): {}, number of edges: {}, mass(g): {}".format(*arguments)
+    print(string)
