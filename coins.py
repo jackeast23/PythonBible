@@ -1,53 +1,132 @@
 import random
 
-# Class is the template
+class Coin: 
+    def __init__(self, rare = False, clean = True, heads = True, **kwargs):
 
-class Dollar:
+        for key, value in kwargs.items():
+            setattr(self,key,value)
 
-    # Constructor method
-    def __init__(self, rare = False):
+        self.is_rare = rare
+        self.is_clean = clean
+        self.heads = heads
 
-        self.rare = rare
-
-        if self.rare:
-            self.value = 1.25
+        if self.is_rare:
+            self.value = self.original_value * 1.25
         else:
-            self.value = 1.00
+            self.value = self.original_value
 
-        self.value = 1.00
-        self.colour = "gold"
-        self.num_edges = 11
-        self.diameter = 26.5 # mm
-        self.thickness = 1.95 # mm
-        self.heads = True
+        if self.is_clean:
+            self.colour = self.clean_colour
+        else:
+            self.colour = self.rusty_colour
 
     def rust(self):
-        self.colour = "greenish"
+        self.colour = self.rusty_colour
 
     def clean(self):
-        self.colour = "gold"
+        self.colour = self.clean_colour
+
+    def __del__(self):
+        print("Coin Spent!")
 
     def flip(self):
         heads_options = [True, False]
         choice = random.choice(heads_options)
         self.heads = choice
 
-    def __del__(self):
-        print("Coin Spent!")
 
+class Loonie(Coin):
+    def __init__(self):
+        data = {
+            "original_value": 1.00,
+            "clean_colour": "gold",
+            "rusty_colour": "brownish",
+            "num_edges": 11,
+            "diameter": 26.5,
+            "thickness": 1.95,
+            "mass": 6.27
+        }
+        super().__init__(**data)
 
-# Object is an instance of the class Dollar
+class Penny(Coin):
+    def __init__(self):
+        data = {
+            "original_value": 0.01,
+            "clean_colour": "copper",
+            "rusty_colour": "greenish",
+            "num_edges": 1,
+            "diameter": 19.05,
+            "thickness": 1.45,
+            "mass": 2.35
+        }
+        super().__init__(**data)
 
-coin1 = Dollar()
-coin1.rust()
-print(coin1.colour)
-coin1.clean()
-print(coin1.colour)
-print(coin1.heads)
-coin1.flip()
-print(coin1.heads)
-del coin1
+class Dime(Coin):
+    def __init__(self):
+        data = {
+            "original_value": 0.10,
+            "clean_colour": "silver",
+            "rusty_colour": None,
+            "num_edges": 118,
+            "diameter": 18.03,
+            "thickness": 1.22,
+            "mass": 1.75
+        }
+        super().__init__(**data)
+        
+    def rust(self):
+        self.colour = self.clean_colour
 
-coin2 = Dollar()
-print(coin2.colour)
+    def clean(self):
+        self.colour = self.clean_colour
 
+class Nickel(Coin):
+    def __init__(self):
+        data = {
+            "original_value": 0.05,
+            "clean_colour": "silver",
+            "rusty_colour": None,
+            "num_edges": 1,
+            "diameter": 21.2,
+            "thickness": 1.76,
+            "mass": 3.95
+        }
+        super().__init__(**data)
+
+    def rust(self):
+        self.colour = self.clean_colour
+
+    def clean(self):
+        self.colour = self.clean_colour
+
+class Quarter(Coin):
+    def __init__(self):
+        data = {
+            "original_value": 0.25,
+            "clean_colour": "silver",
+            "rusty_colour": None,
+            "num_edges": 119,
+            "diameter": 23.88,
+            "thickness": 1.58,
+            "mass": 4.4
+        }
+        super().__init__(**data)
+
+    def rust(self):
+        self.colour = self.clean_colour
+
+    def clean(self):
+        self.colour = self.clean_colour
+
+class Toonie(Coin):
+    def __init__(self):
+        data = {
+            "original_value": 2.00,
+            "clean_colour": "gold and silver",
+            "rusty_colour": "brownish and silver",
+            "num_edges": "Milled and Smooth",
+            "diameter": 28,
+            "thickness": 1.75,
+            "mass": 6.92
+        }
+        super().__init__(**data)
